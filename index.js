@@ -1,20 +1,19 @@
-function calculate(s) {
-  const stack = [];
-  let num = 0;
-  let sign = "+";
-  for (let i = 0; i < s.length; i++) {
-    const char = s[i];
-    if (!isNaN(parseInt(char)) && char !== " ") {
-      num = num * 10 + parseInt(char);
-    }
-    if (isNaN(parseInt(char)) || i === s.length - 1) {
-      if (sign === "+") stack.push(num);
-      else if (sign === "-") stack.push(-num);
-      else if (sign === "*") stack.push(stack.pop() * num);
-      else if (sign === "/") stack.push(parseInt(stack.pop() / num));
-      num = 0;
-      sign = char;
+const quickSortRandomPivot = (arr) => {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  const pivotIndex = Math.floor(Math.random() * arr.length);
+  const pivot = arr[pivotIndex];
+  const left = [];
+  const right = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (i !== pivotIndex) {
+      if (arr[i] <= pivot) {
+        left.push(arr[i]);
+      } else {
+        right.push(arr[i]);
+      }
     }
   }
-  return stack.reduce((acc, val) => acc + val, 0);
-}
+  return quickSortRandomPivot(left).concat(pivot, quickSortRandomPivot(right));
+};
